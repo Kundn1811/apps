@@ -8,7 +8,7 @@
 function showMovie(){
     let movie = document.querySelector("#name").value;
     let year = document.querySelector("#year").value;
-    const link = `http://www.omdbapi.com/?t=${movie}&y=${year}&apikey=c1fcc466`;
+    const link = `https://www.omdbapi.com/?t=${movie}&y=${year}&apikey=c1fcc466`;
     fetch(link)
     .then(function(res){
         return res.json();
