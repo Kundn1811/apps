@@ -1,91 +1,66 @@
-let link = 'http://www.omdbapi.com/?plot=full&apikey=c1fcc466&s'
-    let movies = document.getElementById("movie")
-    async function searchMovies(){
+//const url = ``http://www.omdbapi.com/?i=${movie.dataset.id}&apikey=c1fcc466``;
+
+// const link = `http://www.omdbapi.com/?i=movie&apikey=c1fcc466`
+// const link2 = `http://www.omdbapi.com/?apikey=c1fcc466&t`
+
+
+
+function showMovie(){
+    let movie = document.querySelector("#name").value;
+    let year = document.querySelector("#year").value;
+    const link = `https://www.omdbapi.com/?t=${movie}&y=${year}&apikey=c1fcc466`;
+    fetch(link)
+    .then(function(res){
+        return res.json();
+    })
+    .then(function(res){
         
-      try{
-          
-          const quer = document.getElementById("query").value;
-   
-          let res = await fetch(`https://omdbapi.com/?apikey=c1fcc466&s=${quer}`);
-   
-          let data = await res.json();
-          //  console.log("data:",data);
-           return data;
-           appendMovies(data.Search)
-      }catch(err){
-          console.log("error",err);
-      }
-  
-  }
-  function appendMovies(data){
-          if(data === undefined){
-              return false
-          }
-          console.log(data)
-          movies.innerHTML = null;
-          movies.style.display = "block"
-        data.forEach(function(el){
-  
-           let p = document.createElement("p")
-           p.innerText = el.Title
-           p.addEventListener("click",function(){
-               document.getElementById("query").value = p.innerText;
-               showDetails(el);
-               movies.style.display = "none";
-           })
-           movies.append(p)
-        })
-  
-      }
-  
-      function showDetails(data){
-        document.getElementById("container").innerHTML = null;
-          let box = document.createElement("div");
-           box.setAttribute("id","box");
-          let image = document.createElement("img")
-          image.src = data.Poster;
-          let box2 = document.createElement("div");
-          let title = document.createElement("h3");
-          title.innerText = data.Title;
-          let year = document.createElement("p");
-          year.innerText = `Release-Year:- ${data.Year}`;
-          let  ratings = document.createElement("p");
+        console.log("res",res)
+        append(res)
+    })
+    .catch(function(err){
+     // console.log("error",err)
+        document.querySelector("#container").innerHTML= null;
+
+        let image = document.createElement("img");
+        image.src = "https://cdn.dribbble.com/users/1138875/screenshots/4669703/404_animation.gif"
+         let heading = document.createElement("h1");
+         heading.innerText = "invalid movie name Or Year"
         
+         document.querySelector("#container").append(image,heading)
+
+     });
+
+}
+
+function append(data){
+    document.querySelector("#container").innerHTML= null;
+    let boxd = document.createElement("div");
+
+    let img = document.createElement("img");
+    img.src = data.Poster
+    let name = document.createElement("p");
+    name.innerText ="Title:"+ data.Title; 
+    let year = document.createElement("p")
+    year.innerText ="Release Date:"+ data.Released;
+    let rating = document.createElement("p")
+    rating.innerText ="Ratings:"+ data.Ratings[0].Value;
+    let ratingcheck = data.imdbRating;
+    
+    console.log(data)
+       if(ratingcheck>=8.5){
+           let recomend = document.createElement("h3");
+           recomend.setAttribute("id","recomend");
+
+           recomend.innerText = "Recommended"
+           
+           boxd.append(recomend,name,rating,year)
           
-         fetch(`https://www.omdbapi.com/?i=${data.imdbID}&apikey=c1fcc466`).then((res)=>{
-           return res.json()
-         }).then((res)=>{
-            ratings.innerText ="Imdb-Rating:- "+ res.imdbRating;
-          // console.log(res.imdbRating)
-         })
+          
+       }
+        
+    boxd.append(name,rating,year);
+      document.querySelector("#container").append(img,boxd)
 
-         //console.log(data.imdbID)
-         box2.append(title,year,ratings)
-         box.append(image,box2);
-         document.getElementById("container").append(box)
-
-      }
-  
-  async function main(){
-      let data =  await searchMovies()
-     appendMovies(data.Search)
-  }
-  
-  // debouncing
-  let id
-  function debounce(func,delay){
-      
-      if(id){
-          clearTimeout(id);
-      }
-  
-  
-   id  = setTimeout(function(){
-           func()
-       },delay)
-  }
-  function goTo(){
-    window.location.href = "trending.html"
-  }
-
-  
+    
+}
