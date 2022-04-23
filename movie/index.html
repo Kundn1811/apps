@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <style>
+       #navbar{
+           border: 1px solid red;
+           background-color: teal;
+           color: seashell;
+           padding: 15px;
+           border-radius:10px ;
+           display: flex;
+           justify-content: space-between;
+
+       }
+       #navbar>h2{
+           margin: 0px;
+       }
+       #navbar>div{
+          
+       }
+       #navbar>div>input{
+           font-size: 15px;
+          border-radius: 5px;
+          border: none;
+          padding: 5px;
+          margin-right:5px ;
+       }
+      #btn{
+          border: none;
+          padding: 5px 20px;
+          border-radius: 10px;
+          color: aqua;
+          background-color: brown;
+          cursor: pointer;
+      }
+      #btn:hover{
+         color: aliceblue;
+      }
+      #container{
+          display: flex;
+          width: 50%;
+          margin: auto;
+          margin-top: 5%;
+          justify-content: space-evenly;
+      }
+   </style>
+</head>
+<body>
+    <div id="navbar">
+         <h2>Movie App</h2>
+         <div>
+
+             <input type="text" id="name" placeholder="Movie">
+             <input type="text" id="year" placeholder="Year">
+             <button id="btn" onclick="showMovie()">Search</button>
+            </div>
+             
+    </div>
+    <div id="container">
+         
+    </div>
+</body>
+</html>
+<script src="index.js"></script>
