@@ -19,7 +19,14 @@ function showMovie(){
         append(res)
     })
     .catch(function(err){
-       console.log("err my",err)
+      document.querySelector("#container").innerHTML= null;
+
+        let image = document.createElement("img");
+        image.src = "https://cdn.dribbble.com/users/1138875/screenshots/4669703/404_animation.gif"
+         let heading = document.createElement("h1");
+         heading.innerText = "invalid movie name Or Year"
+        
+         document.querySelector("#container").append(image,heading)
     });
 
 }
